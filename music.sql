@@ -1,0 +1,28 @@
+BEGIN TRANSACTION;
+CREATE TABLE Artists(Ar_Id INTEGER PRIMARY KEY AUTOINCREMENT, 
+	Name TEXT UNIQUE NOT NULL);
+INSERT INTO Artists VALUES(1, 'Prince');
+INSERT INTO Artists VALUES(2, 'The Dead Kennedys');
+INSERT INTO Artists VALUES(3, 'Bob Dylan');
+
+CREATE TABLE Albums(Album_Id INTEGER PRIMARY KEY AUTOINCREMENT, 
+	Name TEXT UNIQUE NOT NULL, 
+	Al_Artist INTEGER, 
+	FOREIGN KEY(Al_Artist) REFERENCES Artists(Ar_Id));
+INSERT INTO Albums VALUES(1, 'Frankencrhist', 2);
+INSERT INTO Albums VALUES(2, 'Blood on the Tracks', 3);
+INSERT INTO Albums VALUES(3, 'Purple Rain', 1);
+
+CREATE TABLE Songs(Song_ID INTEGER PRIMARY KEY AUTOINCREMENT, 
+	Name TEXT UNIQUE NOT NULL, 
+	Track INTEGER,
+	Length INTEGER,
+	Song_Artist INTEGER, 
+	Song_Album INTEGER,
+	FOREIGN KEY(Song_Artist) REFERENCES Artists(Ar_Id)
+	FOREIGN KEY(Song_Album) REFERENCES Artists(Album_Id));
+INSERT INTO Songs VALUES(1, 'Lets Go Crazy', 1, 280, 1, 3);
+INSERT INTO Songs VALUES(2, 'When Doves Cry', 6, 225, 1,3);
+INSERT INTO Songs VALUES(3, 'Idiot Wind', 4, 469, 3, 2);
+INSERT INTO Songs VALUES(4, 'At My Job', 9, 280, 2, 1);
+COMMIT; 
